@@ -11,6 +11,7 @@ func init() {
 	// 注册策略到banbot中，后续在配置文件中使用ma:demo即可引用此策略
 	// `init`函数是go中的特殊函数，会在当前包被导入时立刻执行
 	strat.StratMake["ma:demo"] = Demo
+	strat.StratMake["ma:demo_er"] = DemoER
 	strat.StratMake["ma:demo2"] = DemoInfo
 	strat.StratMake["ma:demo_batch"] = BatchDemo
 	strat.StratMake["ma:demo_exit"] = CustomExitDemo

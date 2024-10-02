@@ -10,6 +10,7 @@ github.com/banbox/banexg v0.2.1 h1:vlr8QLFxJu5gwf1h6l9TSiEcb2uyiqJzMupx1idyEP8=
 github.com/banbox/banexg v0.2.1/go.mod h1:2tcL5QacG7ltTsRRuiZvYcSbhH+jymPxxDSuA2zyLhs=
 github.com/banbox/banta v0.1.4 h1:LQOCw9eeuaFxxCB2GqQMFeTc1K9nLD7ZefZmbb16pjk=
 github.com/banbox/banta v0.1.4/go.mod h1:+9PG7f4QZtfpJfKpGp7aToOUg2ByatDosHjjvGFjaVc=
+github.com/banbox/banta v0.1.5/go.mod h1:+9PG7f4QZtfpJfKpGp7aToOUg2ByatDosHjjvGFjaVc=
 github.com/blend/go-sdk v2.0.0+incompatible/go.mod h1:3GUb0YsHFNTJ6hsJTpzdmCUl05o8HisKjx5OAlzYKdw=
 github.com/bytedance/sonic v1.12.3 h1:W2MGa7RCU1QTeYRTPE3+88mVC0yXmsRQRChiyVocVjU=
 github.com/bytedance/sonic v1.12.3/go.mod h1:B8Gt/XvtZ3Fqj+iSKMypzymZxw/FVwgIGKzMzT9r/rk=
