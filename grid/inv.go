@@ -56,7 +56,7 @@ func InvGrid(pol *config.RunPolicyConfig) *strat.TradeStrat {
 		},
 		OnInfoBar: func(s *strat.StratJob, e *ta.BarEnv, pair, tf string) {
 			m, _ := s.More.(*GridV1)
-			m.bigER = ta.TNR(e.Close, 20).Get(0)
+			m.bigER = ta.ER(e.Close, 20).Get(0)
 			atr := ta.ATR(e.High, e.Low, e.Close, lenAtr)
 			atrBase := ta.Lowest(ta.Highest(atr, lenAtr), baseAtrLen).Get(0)
 			ma5 := ta.SMA(e.Close, 10).Get(0)
