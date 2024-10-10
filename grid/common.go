@@ -22,12 +22,9 @@ bar中间的high/low忽略。所以尽量在1m周期执行，避免一个bar的h
 */
 
 func init() {
-	stgyMap := map[string]strat.FuncMakeStrat{
+	strat.AddStratGroup("grid", map[string]strat.FuncMakeStrat{
 		"inv": InvGrid,
-	}
-	for k, v := range stgyMap {
-		strat.StratMake["grid:"+k] = v
-	}
+	})
 }
 
 func NewGrid(initRate, maxAdd int, slRate float64, debug bool) *Grid {
