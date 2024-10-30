@@ -3,8 +3,8 @@ module github.com/banbox/banstrats
 go 1.23.0
 
 require (
-	github.com/banbox/banbot v0.1.7
-	github.com/banbox/banexg v0.2.2
+	github.com/banbox/banbot v0.1.8
+	github.com/banbox/banexg v0.2.6
 	github.com/banbox/banta v0.1.5
 	go.uber.org/zap v1.27.0
 )
@@ -13,7 +13,7 @@ require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/anyongjin/go-bayesopt v1.0.1 // indirect
 	github.com/bytedance/sonic v1.12.3 // indirect
-	github.com/bytedance/sonic/loader v0.2.0 // indirect
+	github.com/bytedance/sonic/loader v0.2.1 // indirect
 	github.com/c-bata/goptuna v0.9.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
