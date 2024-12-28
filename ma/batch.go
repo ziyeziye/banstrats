@@ -13,7 +13,7 @@ func calcCorrs(jobs []*strat.StratJob, isBig bool) {
 	for _, j := range jobs {
 		dataArr = append(dataArr, j.Env.Close.Range(0, 70))
 	}
-	_, arr, err := utils.CalcCorrMat(dataArr, true)
+	_, arr, err := utils.CalcCorrMat(70, dataArr, true)
 	if err != nil {
 		log.Error("calc corr mat fail", zap.Error(err))
 		return

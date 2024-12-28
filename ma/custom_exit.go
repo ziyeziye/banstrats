@@ -1,10 +1,11 @@
 package ma
 
 import (
-	"github.com/banbox/banbot/config"
-	"github.com/banbox/banbot/orm"
-	"github.com/banbox/banbot/strat"
 	"math/rand"
+
+	"github.com/banbox/banbot/config"
+	"github.com/banbox/banbot/orm/ormo"
+	"github.com/banbox/banbot/strat"
 )
 
 func CustomExitDemo(pol *config.RunPolicyConfig) *strat.TradeStrat {
@@ -16,7 +17,7 @@ func CustomExitDemo(pol *config.RunPolicyConfig) *strat.TradeStrat {
 				s.CloseOrders(&strat.ExitReq{Tag: "close"})
 			}
 		},
-		OnCheckExit: func(s *strat.StratJob, od *orm.InOutOrder) *strat.ExitReq {
+		OnCheckExit: func(s *strat.StratJob, od *ormo.InOutOrder) *strat.ExitReq {
 			if od.ProfitRate > 0.1 {
 				return &strat.ExitReq{Tag: "profit"}
 			}

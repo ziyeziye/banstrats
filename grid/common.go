@@ -2,16 +2,17 @@ package grid
 
 import (
 	"fmt"
-	"github.com/banbox/banbot/btime"
-	"github.com/banbox/banbot/core"
-	"github.com/banbox/banbot/orm"
-	"github.com/banbox/banbot/strat"
-	"github.com/banbox/banbot/utils"
-	ta "github.com/banbox/banta"
 	"math"
 	"slices"
 	"strconv"
 	"strings"
+
+	"github.com/banbox/banbot/btime"
+	"github.com/banbox/banbot/core"
+	"github.com/banbox/banbot/orm/ormo"
+	"github.com/banbox/banbot/strat"
+	"github.com/banbox/banbot/utils"
+	ta "github.com/banbox/banta"
 )
 
 /*
@@ -109,7 +110,7 @@ func (m *Grid) CheckPos(s *strat.StratJob) {
 	cancels := make([]string, 0)
 	var holds = make(map[string]int)
 	for _, od := range odList {
-		if od.Status < orm.InOutStatusPartEnter {
+		if od.Status < ormo.InOutStatusPartEnter {
 			s.CloseOrders(&strat.ExitReq{Tag: "cancel", OrderID: od.ID, Force: true})
 			if m.Debug {
 				cancels = append(cancels, strconv.FormatFloat(od.Enter.Price, 'f', 4, 64))
@@ -190,7 +191,7 @@ func (m *Grid) CheckPos(s *strat.StratJob) {
 	}
 	m.openNeed = false
 	if m.takeNeed {
-		s.SetAllTakeProfit(m.Dirt, &orm.ExitTrigger{
+		s.SetAllTakeProfit(m.Dirt, &ormo.ExitTrigger{
 			Price: closePrice,
 			Rate:  1 / m.HoldSize,
 			Tag:   "exit",
@@ -221,7 +222,7 @@ func (m *Grid) CheckPos(s *strat.StratJob) {
 	}
 }
 
-func (m *Grid) OnOrderChange(s *strat.StratJob, od *orm.InOutOrder, chgType int) {
+func (m *Grid) OnOrderChange(s *strat.StratJob, od *ormo.InOutOrder, chgType int) {
 	if chgType == strat.OdChgEnterFill && od.Enter.Filled > core.AmtDust {
 		// Completion of warehouse entry event
 		// 加仓入场完成事件

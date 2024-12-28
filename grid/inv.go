@@ -1,12 +1,13 @@
 package grid
 
 import (
+	"math"
+
 	"github.com/banbox/banbot/config"
 	"github.com/banbox/banbot/core"
-	"github.com/banbox/banbot/orm"
+	"github.com/banbox/banbot/orm/ormo"
 	"github.com/banbox/banbot/strat"
 	ta "github.com/banbox/banta"
-	"math"
 )
 
 /*
@@ -71,7 +72,7 @@ func InvGrid(pol *config.RunPolicyConfig) *strat.TradeStrat {
 				}
 			}
 		},
-		OnOrderChange: func(s *strat.StratJob, od *orm.InOutOrder, chgType int) {
+		OnOrderChange: func(s *strat.StratJob, od *ormo.InOutOrder, chgType int) {
 			m, _ := s.More.(*GridV1)
 			m.OnOrderChange(s, od, chgType)
 		},
