@@ -3,8 +3,8 @@ github.com/andybalholm/brotli v1.1.1 h1:PR2pgnyFznKEugtsUo0xLdDop5SKXd5Qf5ysW+7X
 github.com/andybalholm/brotli v1.1.1/go.mod h1:05ib4cKhjx3OQYUY22hTVd34Bc8upXjOLL2rKwwZBoA=
 github.com/anyongjin/go-bayesopt v1.0.1 h1:JxB7VwoJ2Hfo9jdbSqPvBAV4rW7JmXMaD1CE+leands=
 github.com/anyongjin/go-bayesopt v1.0.1/go.mod h1:Z6cIBXt3vp2jzaJgRvueDVcREXkxOfWRcWtq2PqSeG8=
-github.com/banbox/banbot v0.1.16 h1:+LuleO7Bqaf8IeSZc9C0xX0hMUjtHremXksB0vUPGdA=
-github.com/banbox/banbot v0.1.16/go.mod h1:PL9sCL6cJttFWn26qeG+HwA0R1h0bligJrYzDWBm2qw=
+github.com/banbox/banbot v0.1.17 h1:Qj5wwCjmv21SBBKqHnu9VYpJpj5JcmRrCQwMAvl6NLw=
+github.com/banbox/banbot v0.1.17/go.mod h1:PL9sCL6cJttFWn26qeG+HwA0R1h0bligJrYzDWBm2qw=
 github.com/banbox/banexg v0.2.10 h1:uEj0/i3pOQxgEGrARgB1uj3GoY88CRZrczbk6I+vNNU=
 github.com/banbox/banexg v0.2.10/go.mod h1:UG9WW08DkFjq16AuVWV2gP5vW3l8bgbb+DdoKWI7zNQ=
 github.com/banbox/banta v0.1.8 h1:WlWiSehMx/5FDUNOb/0iXhRk5JkbX975kd3X/gWA1so=
