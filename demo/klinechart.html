@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8" />
+    <title>{{.Title}}</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/klinecharts/dist/umd/klinecharts.min.js"></script>
+</head>
+<body>
+<div id="chart" style="width:1200px;height:800px"></div>
+<script>
+    window.onload = function () {
+        const chart = klinecharts.init('chart')
+
+        // 注册KDJ指标
+        klinecharts.registerIndicator({
+            name: 'KDJ',
+            shortName: 'KDJ',
+            series: 'normal',
+            figures: [
+                { key: 'k', title: 'K: ', type: 'line', color: '#FF9F00' },
+                { key: 'd', title: 'D: ', type: 'line', color: '#9B2FAE' }
+            ],
+            calc: function() {
+                return {{.KDJData}}
+            },
+            createTooltipDataSource: ({ indicator, crosshair }) => {
+                const data = indicator.result[crosshair.dataIndex]
+                if (data) {
+                    return {
+                        legends: [
+                            { title: 'K: ', value: data.k.toFixed(2) },
+                            { title: 'D: ', value: data.d.toFixed(2) }
+                        ]
+                    }
+                }
+                return {}
+            }
+        })
+
+        // 设置主图样式
+        chart.setStyles({
+            grid: {
+                show: true,
+                horizontal: {
+                    show: true,
+                    size: 1,
+                    color: '#EDEDED',
+                    style: 'dash',
+                },
+                vertical: {
+                    show: true,
+                    size: 1,
+                    color: '#EDEDED',
+                    style: 'dash',
+                },
+            }
+        })
+
+        // 创建KDJ指标
+        chart.createIndicator('KDJ', false, { height: 160 })
+
+        // 添加K线数据
+        chart.applyNewData({{.KLineData}})
+    }
+</script>
+</body>
+</html>

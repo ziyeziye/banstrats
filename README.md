@@ -27,3 +27,6 @@ Then you can execute `go build -o bot` to compile banbot with your strategy into
 
 ### How to install a strategy?
 Just run the single executable file, and access `http://localhost:8000/trade`
+
+## Advanced Usage
+You can visit [here](/demo/README.md) to view more advanced examples of banbot usage
