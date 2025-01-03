@@ -24,3 +24,6 @@ go.work
 
 banbot
 banbot.o
+bot.exe
+bot
+dev.db
