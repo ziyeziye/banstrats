@@ -5,6 +5,7 @@ import (
 	_ "github.com/banbox/banstrats/freqtrade"
 	_ "github.com/banbox/banstrats/grid"
 	_ "github.com/banbox/banstrats/ma"
+	_ "github.com/banbox/banstrats/rpc_ai"
 )
 
 func main() {
