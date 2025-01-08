@@ -18,7 +18,7 @@ Register strategy with `strat.AddStratGroup` using the same feature sampling.
 Similarly record key information to `s.Stagy.Outputs`, which automatically saves to file when backtesting completes. Compare with the file from step 1 to verify consistency.
 
 ## 3. Generate Market Prediction Data
-Start `data_server` on Go side, then write gRPC client code in Python to obtain data and save as training data files.
+Start `bot tool data_server` on Go side, then write gRPC client code in Python to obtain data and save as training data files.
 
 ## 4. Train Market Model
 Example: Treat market prediction as a three-class classification task: uncertain, rising, falling

@@ -14,7 +14,7 @@ rpc_ai是通过grpc与python端ML/DL结合使用的一个示例。
 向`strat.AddStratGroup`注册策略，使用同样的特征采样。
 同样记录关键信息到`s.Stagy.Outputs`中，回测完成自动保存到文件。对比和1中的文件是否一致。
 ## 3. 生成行情预测数据
-go端启动`data_server`，然后python端编写调用grpc的代码，获得数据并落盘为训练数据文件。
+go端启动`bot tool data_server`，然后python端编写调用grpc的代码，获得数据并落盘为训练数据文件。
 ## 4. 训练行情模型
 示例：将行情作为三分类任务：不确定、上升、下降；
 ## 5. 部署模型服务
