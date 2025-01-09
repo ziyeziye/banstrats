@@ -27,3 +27,5 @@ banbot.o
 bot.exe
 bot
 dev.db
+pgdata
+testdata

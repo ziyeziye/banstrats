@@ -1,13 +1,16 @@
 package main
 
 import (
+	"os"
+
 	"github.com/banbox/banbot/entry"
-	_ "github.com/banbox/banstrats/freqtrade"
-	_ "github.com/banbox/banstrats/grid"
-	_ "github.com/banbox/banstrats/ma"
-	_ "github.com/banbox/banstrats/rpc_ai"
+	"github.com/banbox/banstrats/trade/strategies"
 )
 
 func main() {
+	os.Setenv("BanDataDir", "./testdata")
+	os.Setenv("BanStratDir", "./")
+
+	strategies.Init()
 	entry.RunCmd()
 }
