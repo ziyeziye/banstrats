@@ -1,8 +1,9 @@
-package demo
+package adv
 
 import (
 	_ "embed"
 	"fmt"
+	"github.com/banbox/banbot/config"
 	"github.com/banbox/banbot/utils"
 	"github.com/banbox/banexg/errs"
 	"github.com/banbox/banexg/log"
@@ -13,16 +14,26 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"testing"
 )
 
 //go:embed klinechart.html
 var klineTpl []byte
 
-func TestGenKlineChart(t *testing.T) {
-	exgName, market, symbol, tf, start, end := "binance", "spot", "BTC/USDT", "1d", "20241001", "20250101"
+func genKlineChart(args *config.CmdArgs) *errs.Error {
+	exgName, market, timeRange := "binance", "spot", "20241001-20250101"
+	symbol := args.RawPairs
+	if symbol == "" {
+		symbol = "BTC/USDT"
+	}
+	tf := args.RawTimeFrames
+	if tf == "" {
+		tf = "1d"
+	}
+	if args.TimeRange != "" {
+		timeRange = args.TimeRange
+	}
 	warmUpNum := 20
-	klines := getKline(exgName, market, symbol, tf, start, end)
+	klines := getKline(exgName, market, symbol, tf, timeRange)
 
 	// 4. 准备图表数据
 	klineData := make([]map[string]interface{}, len(klines))
@@ -73,11 +84,11 @@ func TestGenKlineChart(t *testing.T) {
 	// 7. 保存文件
 	workDir, err := os.Getwd()
 	if err != nil {
-		panic(err)
+		return errs.New(errs.CodeIOReadFail, err)
 	}
 	outDir := filepath.Join(workDir, "charts")
-	if err := os.MkdirAll(outDir, 0755); err != nil {
-		panic(errs.New(errs.CodeIOWriteFail, err))
+	if err = os.MkdirAll(outDir, 0755); err != nil {
+		return errs.New(errs.CodeIOWriteFail, err)
 	}
 
 	symbolClean := strings.ReplaceAll(strings.ReplaceAll(symbol, "/", ""), ":", "_")
@@ -85,14 +96,15 @@ func TestGenKlineChart(t *testing.T) {
 
 	file, err := os.Create(outPath)
 	if err != nil {
-		panic(err)
+		return errs.New(errs.CodeIOWriteFail, err)
 	}
 	defer file.Close()
 
-	if err := tmpl.Execute(file, templateData); err != nil {
-		panic(err)
+	if err = tmpl.Execute(file, templateData); err != nil {
+		return errs.New(errs.CodeRunTime, err)
 	}
 
 	log.Info("chart generated", zap.String("path", outPath))
 	_ = utils.OpenBrowser("file://" + outPath)
+	return nil
 }

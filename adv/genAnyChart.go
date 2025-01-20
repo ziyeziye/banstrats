@@ -1,16 +1,15 @@
-package demo
+package adv
 
 import (
 	_ "embed"
+	"flag"
 	"fmt"
-	"github.com/banbox/banbot/btime"
 	"github.com/banbox/banbot/orm"
 	"github.com/banbox/banbot/utils"
 	"github.com/banbox/banexg"
 	"os"
 	"path/filepath"
 	"strings"
-	"testing"
 	"time"
 
 	"github.com/banbox/banbot/biz"
@@ -27,9 +26,21 @@ import (
 var chartTpl []byte
 
 // GenAnyChart 生成任意K线图表示例
-func TestGenAnyChart(t *testing.T) {
-	exgName, market, symbol, tf, start, end := "binance", "spot", "BTC/USDT", "1d", "20241201", "20250101"
-	klines := getKline(exgName, market, symbol, tf, start, end)
+func genAnyChart(args []string) error {
+	var exgName, market, symbol, tf, timeRange string
+	var parser = flag.NewFlagSet("", flag.ExitOnError)
+	parser.StringVar(&exgName, "exchange", "binance", "exchange name")
+	parser.StringVar(&market, "market", "spot", "market type: spot/linear/inverse")
+	parser.StringVar(&symbol, "symbol", "BTC/USDT", "symbol")
+	parser.StringVar(&tf, "timeframe", "1h", "time frame: 1m, 5m, 15, 1h, 1d ...")
+	parser.StringVar(&timeRange, "timerange", "20241201-20250101", "start-end")
+
+	err_ := parser.Parse(args)
+	if err_ != nil {
+		return err_
+	}
+
+	klines := getKline(exgName, market, symbol, tf, timeRange)
 
 	// 4. 准备图表数据
 	labels := make([]string, len(klines))
@@ -62,25 +73,26 @@ func TestGenAnyChart(t *testing.T) {
 	// 7. 保存并打开文件
 	workDir, err_ := os.Getwd()
 	if err_ != nil {
-		panic(err_)
+		return err_
 	}
 	outDir := filepath.Join(workDir, "charts")
-	if err := os.MkdirAll(outDir, 0755); err != nil {
-		panic(errs.New(errs.CodeIOWriteFail, err))
+	if err_ = os.MkdirAll(outDir, 0755); err_ != nil {
+		return err_
 	}
 
 	symbolClean := strings.ReplaceAll(strings.ReplaceAll(symbol, "/", ""), ":", "_")
 	outPath := filepath.Join(outDir, fmt.Sprintf("%s_%s_%s.html", exgName, symbolClean, tf))
 
 	if err := g.DumpFile(outPath); err != nil {
-		panic(err)
+		return err
 	}
 
 	log.Info("chart generated", zap.String("path", outPath))
 	_ = utils.OpenBrowser("file://" + outPath)
+	return nil
 }
 
-func getKline(exgName, market, symbol, tf, start, end string) []*banexg.Kline {
+func getKline(exgName, market, symbol, tf, timeRange string) []*banexg.Kline {
 	// 1. 初始化
 	core.SetRunMode(core.RunModeOther)
 	if err := biz.SetupComs(&config.CmdArgs{}); err != nil {
@@ -101,8 +113,10 @@ func getKline(exgName, market, symbol, tf, start, end string) []*banexg.Kline {
 		panic(err)
 	}
 
-	startMS := btime.ParseTimeMS(start)
-	endMS := btime.ParseTimeMS(end)
+	startMS, endMS, err_ := config.ParseTimeRange(timeRange)
+	if err_ != nil {
+		panic(err_)
+	}
 	// auto download and get klines
 	_, klines, err := orm.AutoFetchOHLCV(exchange, exs, tf, startMS, endMS, 0, false, nil)
 	if err != nil {
