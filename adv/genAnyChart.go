@@ -62,7 +62,7 @@ func genAnyChart(args []string) error {
 
 	// 6. 生成图表
 	title := fmt.Sprintf("%s %s %s Chart", exgName, symbol, tf)
-	g := &opt.LineGraph{
+	g := &opt.Chart{
 		TplData:   chartTpl,
 		Title:     title,
 		Labels:    labels,
