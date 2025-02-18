@@ -3,9 +3,9 @@ module github.com/banbox/banstrats
 go 1.23.0
 
 require (
-	github.com/banbox/banbot v0.2.0
+	github.com/banbox/banbot v0.2.1
 	github.com/banbox/banexg v0.2.13
-	github.com/banbox/banta v0.1.8
+	github.com/banbox/banta v0.1.9
 	go.uber.org/zap v1.27.0
 	gonum.org/v1/gonum v0.15.1
 	google.golang.org/grpc v1.70.0
