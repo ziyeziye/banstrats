@@ -20,10 +20,8 @@ func Strategy004(p *config.RunPolicyConfig) *strat.TradeStrat {
 			adx := ta.ADX(e.High, e.Low, e.Close, 14).Cols[0].Get(0)
 			adxSlow := ta.ADX(e.High, e.Low, e.Close, 35).Cols[0].Get(0)
 			cci := ta.CCI(e.Close, 14).Get(0)
-			kdCols := ta.KDJBy(e.High, e.Low, e.Close, 5, 3, 3, "sma").Cols
-			fastK, fastD := kdCols[2], kdCols[0]
-			kdColsSlow := ta.KDJBy(e.High, e.Low, e.Close, 50, 3, 3, "sma").Cols
-			fastKBig, fastDBig := kdColsSlow[2], kdColsSlow[0]
+			fastD, _, fastK := ta.KDJBy(e.High, e.Low, e.Close, 5, 3, 3, "sma")
+			fastDBig, _, fastKBig := ta.KDJBy(e.High, e.Low, e.Close, 50, 3, 3, "sma")
 			ema := ta.EMA(e.Close, 5).Get(0)
 			KDX := ta.Cross(fastK, fastD)
 
