@@ -13,7 +13,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.1.1 // indirect
-	github.com/anyongjin/go-bayesopt v1.0.1 // indirect
+	github.com/anyongjin/go-bayesopt v1.0.2 // indirect
 	github.com/c-bata/goptuna v0.9.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/dgraph-io/ristretto v0.2.0 // indirect
