@@ -51,7 +51,7 @@ func genKlineChart(args *config.CmdArgs) *errs.Error {
 	for i, k := range klines {
 		// calculate indicators
 		e.OnBar(k.Time, k.Open, k.High, k.Low, k.Close, k.Volume, k.Info)
-		kdjArr := ta.KDJ(e.High, e.Low, e.Close, 9, 3, 3).Cols
+		kdjK, kdjD, _ := ta.KDJ(e.High, e.Low, e.Close, 9, 3, 3)
 
 		if i < warmUpNum {
 			continue
@@ -66,8 +66,8 @@ func genKlineChart(args *config.CmdArgs) *errs.Error {
 			"volume":    k.Volume,
 		}
 		kdjData[i] = map[string]float64{
-			"k": kdjArr[0].Get(0),
-			"d": kdjArr[1].Get(0),
+			"k": kdjK.Get(0),
+			"d": kdjD.Get(0),
 		}
 	}
 

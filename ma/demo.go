@@ -31,9 +31,15 @@ func Demo(pol *config.RunPolicyConfig) *strat.TradeStrat {
 			maCrx := ta.Cross(ma5, ma20)
 
 			if maCrx == 1 {
-				s.OpenOrder(&strat.EnterReq{Tag: "open"})
+				s.OpenOrder(&strat.EnterReq{Tag: "long"})
+				if len(s.ShortOrders) > 0 {
+					s.CloseOrders(&strat.ExitReq{Tag: "exitS", Dirt: core.OdDirtShort})
+				}
 			} else if maCrx == -1 {
-				s.CloseOrders(&strat.ExitReq{Tag: "exit"})
+				s.OpenOrder(&strat.EnterReq{Tag: "short", Short: true})
+				if len(s.LongOrders) > 0 {
+					s.CloseOrders(&strat.ExitReq{Tag: "exitL", Dirt: core.OdDirtLong})
+				}
 			}
 		},
 	}

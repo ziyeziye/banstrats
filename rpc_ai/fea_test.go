@@ -27,8 +27,8 @@ func TestDataClient(t *testing.T) {
 	defer conn.Close()
 	c := biz.NewFeaFeederClient(conn)
 	ctx := context.Background()
-	startMS := btime.ParseTimeMS("20241221")
-	endMS := btime.ParseTimeMS("20250102")
+	startMS, _ := btime.ParseTimeMS("20241221")
+	endMS, _ := btime.ParseTimeMS("20250102")
 	task := "aifea"
 	codes := []string{"BTC/USDT:USDT", "XRP/USDT:USDT"}
 	res, err := c.SubFeatures(ctx, &biz.SubReq{

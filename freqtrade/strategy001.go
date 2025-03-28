@@ -27,9 +27,9 @@ func Strategy001(p *config.RunPolicyConfig) *strat.TradeStrat {
 			maSml := ta.EMA(e.Close, lenSml)
 			maMid := ta.EMA(e.Close, lenMid)
 			maBig := ta.EMA(e.Close, lenBig)
-			haCols := ta.HeikinAshi(e).Cols
-			haOpen := haCols[0].Get(0)
-			haClose := haCols[3].Get(0)
+			haOpenC, _, _, haCloseC := ta.HeikinAshi(e)
+			haOpen := haOpenC.Get(0)
+			haClose := haCloseC.Get(0)
 			smlXmid := ta.Cross(maSml, maMid)
 			midXBig := ta.Cross(maMid, maBig)
 
