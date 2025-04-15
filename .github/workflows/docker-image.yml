@@ -1,0 +1,49 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Extract version from go.mod
+      id: get-version
+      run: |
+        if grep -q "github.com/banbox/banbot" go.mod; then
+          VERSION=$(grep "github.com/banbox/banbot" go.mod | awk '{print $2}' | tr -d 'v')
+          if [ -n "$VERSION" ]; then
+            echo "version=v$VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "version=latest" >> $GITHUB_OUTPUT
+          fi
+        else
+          echo "version=latest" >> $GITHUB_OUTPUT
+        fi
+      shell: bash
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: |
+          banbot/banbot:latest
+          banbot/banbot:${{ steps.get-version.outputs.version }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
